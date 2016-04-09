@@ -2,10 +2,10 @@
 
 Demonstrates the use of the cassandra datastax driver in a couple of scala tests.
 
-*** Cassandra connection ***
+***Cassandra connection***
 
 * CassandraUriSpec
 
-*** select statements ***
+***Select statements***
 
 * CassandraSelectSpec
