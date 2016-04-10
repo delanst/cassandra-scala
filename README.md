@@ -11,6 +11,8 @@ For this example to run set up your cassandra as described below
 ... values (1,'fred','smith','eng');
 * select * from emp;
 
+Verify you have the table emp with one record.
+
 ***Cassandra connection***
 
 * CassandraUriSpec
