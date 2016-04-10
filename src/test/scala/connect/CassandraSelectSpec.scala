@@ -8,17 +8,19 @@ import com.datastax.driver.core.querybuilder.QueryBuilder._
 class CassandraSelectSpec extends FunSpec with Matchers {
 
   describe("A select statement on cassandra") {
-    it("should get emp_first that is fred where id is 1") {
+    it("should get emp_last that is last where id is largest") {
       val uri = CassandraConnectionUri("cassandra://localhost:9042/dev")
       val session = Helper.createSessionAndInitKeyspace(uri)
 
-      val statement = select().column("emp_first").from("emp")
-          .where(QueryBuilder.eq("empid",1))
-            .limit(1)
+      val countResult = session.execute("select max(empid) as maxemp from emp")
+      val highNumber = countResult.one().getInt("maxemp")
+
+      val statement = select().column("emp_last").from("emp")
+          .where(QueryBuilder.eq("empid",highNumber))
 
       val result = session.execute(statement).one()
 
-      result.getString("emp_first") should be ("fred")
+      result.getString("emp_last") should be ("last")
     }
 
     it("should get list with rows containing all emp") {
